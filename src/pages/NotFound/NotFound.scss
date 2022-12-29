@@ -1,0 +1,16 @@
+.not-found {
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-area: main;
+  min-height: 100vh;
+  @media screen and (min-width: 0px) and (max-width: 450px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__wrap {
+
+  }
+}

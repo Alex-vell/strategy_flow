@@ -1,0 +1,79 @@
+.strategyPage {
+
+  .strategyList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .addStrategyBtn {
+      text-decoration: none;
+      margin-left: 71px;
+      margin-right: 10px;
+      color: #464646FF;
+      font-size: 18px;
+      padding: 5px;
+      border: 2px solid transparent;
+      border-radius: 5px;
+      font-weight: 500;
+      float: left;
+      &:hover {
+        text-decoration: underline;
+      }
+      img {
+        width: 16px;
+        height: 16px;
+        margin-bottom: -1px;
+        margin-right: 5px;
+      }
+    }
+
+    .strategyItem {
+      width: 60%;
+      max-width: 700px;
+      border-radius: 6px;
+      padding: 10px 20px;
+      margin: 20px;
+      box-shadow: rgb(131 131 131 / 15%) 0px 16px 20px, rgb(131 131 131 / 15%) 0px 0px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .title {
+        margin-top: 0;
+        margin-bottom: 10px;
+        padding: 0;
+      }
+
+      .block {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: start;
+          color: #464646;
+          .field {
+            margin-right: 10px;
+            color: #343434;
+            font-weight: 500;
+          }
+        }
+        .imgWrap {
+          padding: 10px;
+          .img {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+          }
+        }
+      }
+
+    }
+  }
+}
