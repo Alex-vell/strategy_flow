@@ -1,21 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { IEntryItem, publicApi } from '../../api/public-api';
+import { defaultValueStrategy, IStrategy, strategyApi } from '../../api/strategy-api';
 
-export const fetchPublicAPI = createAsyncThunk(
-  'publicApi/fetchPublicAPI',
+export const fetchStrategies = createAsyncThunk(
+  'strategies/fetchStrategies',
   async (_, thunkAPI) => {
     try {
-      const res = await publicApi.getPublicApi();
+      const res = await strategyApi.getStrategies();
       return res.data;
     } catch (e) {
-      return thunkAPI.rejectWithValue(e);
+      // return thunkAPI.rejectWithValue(e);
+      console.log(thunkAPI.rejectWithValue(e));
+      return defaultValueStrategy;
     }
   },
 );
 
 export const removeStrategyTC = createAsyncThunk(
-  'publicApi/removeStrategyTC',
+  'strategies/removeStrategyTC',
   async (strategyId: string, thunkAPI) => {
     try {
       return strategyId;
@@ -26,8 +28,8 @@ export const removeStrategyTC = createAsyncThunk(
 );
 
 export const addStrategyTC = createAsyncThunk(
-  'publicApi/addStrategyTC',
-  async (strategy: IEntryItem, thunkAPI) => {
+  'strategies/addStrategyTC',
+  async (strategy: IStrategy, thunkAPI) => {
     try {
       return strategy;
     } catch (e) {

@@ -7,19 +7,19 @@ import removeStrategySVG from '../../assets/img/trash-can-solid.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { PATH } from '../../routes/Routes';
 import {
-  fetchPublicAPI,
+  fetchStrategies,
   removeStrategyTC,
-} from '../../store/meddleware/layoutMiddleware';
+} from '../../store/meddleware/strategyMiddleware';
 
 import style from './Strategies.module.scss';
 
 export const Strategies: FC = () => {
   const dispatch = useAppDispatch();
 
-  const entries = useAppSelector(state => state.publicApiReducer.entries);
+  const strategies = useAppSelector(state => state.strategyReducer.strategies);
 
   useEffect(() => {
-    dispatch(fetchPublicAPI());
+    dispatch(fetchStrategies());
   }, []);
 
   const removeStrategy = (strategy: string): void => {
@@ -34,28 +34,21 @@ export const Strategies: FC = () => {
           Create strategy
         </NavLink>
 
-        {entries?.entries?.map(item => (
-          <div key={item.Link} className={style.strategyItem}>
-            <h3 className={style.title}>{item.API}</h3>
+        {strategies?.strategies?.map(item => (
+          <div key={item.id} className={style.strategyItem}>
+            <h3 className={style.title}>{item.name}</h3>
             <div className={style.block}>
               <div className={style.content}>
                 <div>
-                  <span className={style.field}>Category:</span> {item.Category}
-                </div>
-                <div>
-                  <span className={style.field}>Link:</span>
-                  {item.Link}
-                </div>
-                <div>
                   <span className={style.field}>Description:</span>
-                  {item.Description}
+                  {item.description}
                 </div>
               </div>
               <div
                 role="presentation"
                 className={style.imgWrap}
                 onClick={() => {
-                  removeStrategy(item.API);
+                  removeStrategy(item.id);
                 }}
               >
                 <img

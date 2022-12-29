@@ -5,18 +5,23 @@ import { Input } from 'antd';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { IEntryItem } from '../../api/public-api';
+import { IStrategy } from '../../api/strategy-api';
 import { useAppDispatch } from '../../hooks/redux';
 import { PATH } from '../../routes/Routes';
-import { addStrategyTC } from '../../store/meddleware/layoutMiddleware';
+import { addStrategyTC } from '../../store/meddleware/strategyMiddleware';
 
 export const StrategyForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { handleSubmit, control } = useForm<IEntryItem>();
-  const onSubmit: SubmitHandler<IEntryItem> = data => {
-    dispatch(addStrategyTC(data));
+  const { handleSubmit, control } = useForm<IStrategy>();
+  const onSubmit: SubmitHandler<IStrategy> = data => {
+    const newData = {
+      id: new Date().getTime().toString(),
+      name: data.name,
+      description: data.description,
+    };
+    dispatch(addStrategyTC(newData));
     navigate(PATH.HOME);
   };
 
@@ -27,11 +32,11 @@ export const StrategyForm: FC = () => {
           <div className="root__login__login-form__fields-block__field-wrap">
             <Controller
               control={control}
-              name="API"
+              name="name"
               rules={{ required: true }}
               render={({ field: { onChange, onBlur, value, ref } }) => (
                 <label htmlFor="API" className="label">
-                  API
+                  Name
                   <Input
                     id="API"
                     className="field"
@@ -49,75 +54,12 @@ export const StrategyForm: FC = () => {
           <div className="root__login__login-form__fields-block__field-wrap">
             <Controller
               control={control}
-              name="Auth"
+              name="description"
               render={({ field: { onChange, onBlur, value, ref } }) => (
-                <label htmlFor="Auth" className="label">
-                  Auth
-                  <Input
-                    id="Auth"
-                    required
-                    className="field"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                    ref={ref}
-                  />
-                </label>
-              )}
-            />
-          </div>
-
-          <div className="root__login__login-form__fields-block__field-wrap">
-            <Controller
-              control={control}
-              name="Category"
-              render={({ field: { onChange, onBlur, value, ref } }) => (
-                <label htmlFor="Category" className="label">
-                  Category
-                  <Input
-                    id="Category"
-                    className="field"
-                    required
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                    ref={ref}
-                  />
-                </label>
-              )}
-            />
-          </div>
-
-          <div className="root__login__login-form__fields-block__field-wrap">
-            <Controller
-              control={control}
-              name="Description"
-              render={({ field: { onChange, onBlur, value, ref } }) => (
-                <label htmlFor="Description" className="label">
+                <label htmlFor="description" className="label">
                   Description
                   <Input
-                    id="Category"
-                    className="field"
-                    required
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                    ref={ref}
-                  />
-                </label>
-              )}
-            />
-          </div>
-
-          <div className="root__login__login-form__fields-block__field-wrap">
-            <Controller
-              control={control}
-              name="Link"
-              render={({ field: { onChange, onBlur, value, ref } }) => (
-                <label htmlFor="Link" className="label">
-                  Link
-                  <Input
-                    id="Link"
+                    id="description"
                     className="field"
                     required
                     onChange={onChange}

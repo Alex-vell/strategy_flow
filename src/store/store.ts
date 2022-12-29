@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { appReducer } from './AppSlice';
-import { publicApiReducer } from './PublicApiSlice';
+import { strategiesReducer } from './StrategiesSlice';
 
 const rootReducer = combineReducers({
-  publicApiReducer,
+  strategyReducer: strategiesReducer,
   appReducer,
 });
 
