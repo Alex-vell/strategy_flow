@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { PATH } from '../../routes/Routes';
 import {
   fetchStrategies,
+  removeApiTC,
   removeStrategyTC,
 } from '../../store/meddleware/strategyMiddleware';
 
@@ -17,6 +18,7 @@ export const Strategies: FC = () => {
   const dispatch = useAppDispatch();
 
   const strategies = useAppSelector(state => state.strategyReducer.strategies);
+  const apies = useAppSelector(state => state.strategyReducer.publicApis.entries);
 
   useEffect(() => {
     dispatch(fetchStrategies());
@@ -24,6 +26,9 @@ export const Strategies: FC = () => {
 
   const removeStrategy = (strategy: string): void => {
     dispatch(removeStrategyTC(strategy));
+  };
+  const removeApi = (api: string): void => {
+    dispatch(removeApiTC(api));
   };
 
   return (
@@ -34,32 +39,59 @@ export const Strategies: FC = () => {
           Create strategy
         </NavLink>
 
-        {strategies?.strategies?.map(item => (
-          <div key={item.id} className={style.strategyItem}>
-            <h3 className={style.title}>{item.name}</h3>
-            <div className={style.block}>
-              <div className={style.content}>
-                <div>
-                  <span className={style.field}>Description:</span>
-                  {item.description}
+        {apies
+          ? apies.map(api => (
+              <div key={api.Link} className={style.strategyItem}>
+                <h3 className={style.title}>{api.API}</h3>
+                <div className={style.block}>
+                  <div className={style.content}>
+                    <div>
+                      <span className={style.field}>Link:</span>
+                      {api.Link}
+                    </div>
+                  </div>
+                  <div
+                    role="presentation"
+                    className={style.imgWrap}
+                    onClick={() => {
+                      removeApi(api.Link);
+                    }}
+                  >
+                    <img
+                      className={style.img}
+                      src={removeStrategySVG}
+                      alt="remove strategy"
+                    />
+                  </div>
                 </div>
               </div>
-              <div
-                role="presentation"
-                className={style.imgWrap}
-                onClick={() => {
-                  removeStrategy(item.id);
-                }}
-              >
-                <img
-                  className={style.img}
-                  src={removeStrategySVG}
-                  alt="remove strategy"
-                />
+            ))
+          : strategies?.strategies?.map(item => (
+              <div key={item.id} className={style.strategyItem}>
+                <h3 className={style.title}>{item.name}</h3>
+                <div className={style.block}>
+                  <div className={style.content}>
+                    <div>
+                      <span className={style.field}>Description:</span>
+                      {item.description}
+                    </div>
+                  </div>
+                  <div
+                    role="presentation"
+                    className={style.imgWrap}
+                    onClick={() => {
+                      removeStrategy(item.id);
+                    }}
+                  >
+                    <img
+                      className={style.img}
+                      src={removeStrategySVG}
+                      alt="remove strategy"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+            ))}
       </div>
     </div>
   );

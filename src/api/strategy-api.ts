@@ -4,7 +4,8 @@ import { instance } from './http';
 
 export const strategyApi = {
   getStrategies() {
-    return instance.get<IStrategies, AxiosResponse<IStrategies>>('list');
+    // return instance.get<IStrategies, AxiosResponse<IStrategies>>('list');
+    return instance.get<IStrategies, AxiosResponse<IPublicApis>>('entries');
   },
 };
 
@@ -16,6 +17,21 @@ export interface IStrategy {
 
 export interface IStrategies {
   strategies: IStrategy[];
+}
+
+export interface IApi {
+  API: string;
+  Description: string;
+  Auth: string;
+  HTTPS: boolean;
+  Cors: string;
+  Link: string;
+  Category: string;
+}
+
+export interface IPublicApis {
+  count: number;
+  entries: IApi[];
 }
 
 export const defaultValueStrategy = {
