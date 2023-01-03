@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 
 import { IApi, IStrategy, strategyApi } from '../../api/strategy-api';
+import { setAppErrorAC } from '../AppSlice';
 
 export const fetchStrategies = createAsyncThunk(
   'strategies/fetchStrategies',
@@ -9,9 +11,9 @@ export const fetchStrategies = createAsyncThunk(
       const res = await strategyApi.getStrategies();
       return res.data;
     } catch (e) {
+      const error = e as AxiosError;
+      thunkAPI.dispatch(setAppErrorAC({ error: error.message }));
       return thunkAPI.rejectWithValue(e);
-      // console.log(thunkAPI.rejectWithValue(e));
-      // return defaultValueStrategy;
     }
   },
 );

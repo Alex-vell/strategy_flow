@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { defaultValueStrategy, IPublicApis, IStrategies } from '../api/strategy-api';
+import {
+  defaultValueStrategy,
+  // IDefaultStrategy,
+  IPublicApis,
+  IStrategies,
+} from '../api/strategy-api';
 
 import {
   addApiTC,
@@ -26,11 +31,10 @@ export const StrategiesSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchStrategies.fulfilled, (state, action) => {
-      if (action.payload.entries) {
-        state.publicApis = action.payload;
-      } else {
-        state.strategies = defaultValueStrategy;
-      }
+      state.publicApis.entries = action.payload.entries;
+    });
+    builder.addCase(fetchStrategies.rejected, state => {
+      state.strategies = defaultValueStrategy;
     });
     builder.addCase(addApiTC.fulfilled, (state, action) => {
       if (action.payload) {

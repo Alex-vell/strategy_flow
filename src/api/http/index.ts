@@ -2,7 +2,6 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-  // baseURL: 'https://api.strategies.com/',
   baseURL: 'https://api.publicapis.org/',
 });
 

@@ -6,6 +6,7 @@ import addStrategySVG from '../../assets/img/plus-solid.svg';
 import removeStrategySVG from '../../assets/img/trash-can-solid.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { PATH } from '../../routes/Routes';
+import { setAppErrorAC } from '../../store/AppSlice';
 import {
   fetchStrategies,
   removeApiTC,
@@ -18,10 +19,14 @@ export const Strategies: FC = () => {
   const dispatch = useAppDispatch();
 
   const strategies = useAppSelector(state => state.strategyReducer.strategies);
-  const apies = useAppSelector(state => state.strategyReducer.publicApis.entries);
+  const entries = useAppSelector(state => state.strategyReducer.publicApis.entries);
+  const error = useAppSelector(state => state.appReducer.error);
 
   useEffect(() => {
     dispatch(fetchStrategies());
+    return () => {
+      dispatch(setAppErrorAC({ error: null }));
+    };
   }, []);
 
   const removeStrategy = (strategy: string): void => {
@@ -39,8 +44,8 @@ export const Strategies: FC = () => {
           Create strategy
         </NavLink>
 
-        {apies
-          ? apies.map(api => (
+        {!error
+          ? entries?.map(api => (
               <div key={api.Link} className={style.strategyItem}>
                 <h3 className={style.title}>{api.API}</h3>
                 <div className={style.block}>
@@ -66,7 +71,7 @@ export const Strategies: FC = () => {
                 </div>
               </div>
             ))
-          : strategies?.strategies?.map(item => (
+          : strategies.strategies?.map(item => (
               <div key={item.id} className={style.strategyItem}>
                 <h3 className={style.title}>{item.name}</h3>
                 <div className={style.block}>

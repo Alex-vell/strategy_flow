@@ -4,7 +4,6 @@ import { instance } from './http';
 
 export const strategyApi = {
   getStrategies() {
-    // return instance.get<IStrategies, AxiosResponse<IStrategies>>('list');
     return instance.get<IStrategies, AxiosResponse<IPublicApis>>('entries');
   },
 };
