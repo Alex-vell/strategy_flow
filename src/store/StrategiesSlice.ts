@@ -1,10 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import {
   defaultValueStrategy,
   // IDefaultStrategy,
   IPublicApis,
   IStrategies,
+  IStrategy,
 } from '../api/strategy-api';
 
 import {
@@ -18,17 +19,28 @@ import {
 interface ILayoutState {
   strategies: IStrategies;
   publicApis: IPublicApis;
+  selectedStrategy: IStrategy | null;
+  isCreatedStrategy: boolean;
 }
 
 const initialState: ILayoutState = {
-  strategies: {} as IStrategies,
+  strategies: defaultValueStrategy as IStrategies,
   publicApis: {} as IPublicApis,
+  selectedStrategy: null,
+  isCreatedStrategy: false,
 };
 
 export const StrategiesSlice = createSlice({
   name: 'strategies',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedStrategyAC(state, action: PayloadAction<IStrategy | null>) {
+      state.selectedStrategy = action.payload;
+    },
+    setIsCreatedStrategyAC(state, action: PayloadAction<{ status: boolean }>) {
+      state.isCreatedStrategy = action.payload.status;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(fetchStrategies.fulfilled, (state, action) => {
       state.publicApis.entries = action.payload.entries;
@@ -66,3 +78,4 @@ export const StrategiesSlice = createSlice({
 });
 
 export const strategiesReducer = StrategiesSlice.reducer;
+export const { setSelectedStrategyAC, setIsCreatedStrategyAC } = StrategiesSlice.actions;

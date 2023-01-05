@@ -1,17 +1,13 @@
 import React, { FC, useEffect } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 
-import addStrategySVG from '../../assets/img/plus-solid.svg';
-import removeStrategySVG from '../../assets/img/trash-can-solid.svg';
+import { IStrategy } from '../../api/strategy-api';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { PATH } from '../../routes/Routes';
 import { setAppErrorAC } from '../../store/AppSlice';
-import {
-  fetchStrategies,
-  removeApiTC,
-  removeStrategyTC,
-} from '../../store/meddleware/strategyMiddleware';
+import { fetchStrategies } from '../../store/meddleware/strategyMiddleware';
+import { setSelectedStrategyAC } from '../../store/StrategiesSlice';
 
 import style from './Strategies.module.scss';
 
@@ -19,8 +15,9 @@ export const Strategies: FC = () => {
   const dispatch = useAppDispatch();
 
   const strategies = useAppSelector(state => state.strategyReducer.strategies);
-  const entries = useAppSelector(state => state.strategyReducer.publicApis.entries);
-  const error = useAppSelector(state => state.appReducer.error);
+  const selectedStrategy = useAppSelector(
+    state => state.strategyReducer.selectedStrategy,
+  );
 
   useEffect(() => {
     dispatch(fetchStrategies());
@@ -29,74 +26,43 @@ export const Strategies: FC = () => {
     };
   }, []);
 
-  const removeStrategy = (strategy: string): void => {
-    dispatch(removeStrategyTC(strategy));
+  const selectStrategy = (strategy: IStrategy | null): void => {
+    dispatch(setSelectedStrategyAC(strategy));
   };
-  const removeApi = (api: string): void => {
-    dispatch(removeApiTC(api));
-  };
+
+  if (selectedStrategy) {
+    return <Navigate to={PATH.STRATEGY_FORM} />;
+  }
 
   return (
     <div className={style.strategyPage}>
-      <div className={style.strategyList}>
-        <NavLink className={style.addStrategyBtn} to={PATH.STRATEGY_FORM}>
-          <img src={addStrategySVG} alt="create strategy" />
-          Create strategy
+      <div className={style.backBtnWrap}>
+        <NavLink to={PATH.STRATEGY_FORM} className={style.backBtn}>
+          Back
         </NavLink>
-
-        {!error
-          ? entries?.map(api => (
-              <div key={api.Link} className={style.strategyItem}>
-                <h3 className={style.title}>{api.API}</h3>
-                <div className={style.block}>
-                  <div className={style.content}>
-                    <div>
-                      <span className={style.field}>Link:</span>
-                      {api.Link}
-                    </div>
-                  </div>
-                  <div
-                    role="presentation"
-                    className={style.imgWrap}
-                    onClick={() => {
-                      removeApi(api.Link);
-                    }}
-                  >
-                    <img
-                      className={style.img}
-                      src={removeStrategySVG}
-                      alt="remove strategy"
-                    />
-                  </div>
-                </div>
-              </div>
-            ))
-          : strategies.strategies?.map(item => (
-              <div key={item.id} className={style.strategyItem}>
-                <h3 className={style.title}>{item.name}</h3>
-                <div className={style.block}>
-                  <div className={style.content}>
-                    <div>
-                      <span className={style.field}>Description:</span>
-                      {item.description}
-                    </div>
-                  </div>
-                  <div
-                    role="presentation"
-                    className={style.imgWrap}
-                    onClick={() => {
-                      removeStrategy(item.id);
-                    }}
-                  >
-                    <img
-                      className={style.img}
-                      src={removeStrategySVG}
-                      alt="remove strategy"
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
+      </div>
+      <div className={style.titleWrap}>
+        <h1 className={style.title}>Select a strategy</h1>
+      </div>
+      <div className={style.strategyList}>
+        {strategies.strategies?.map(item => (
+          <div
+            role="presentation"
+            key={item.id}
+            className={style.strategyItem}
+            onClick={() => {
+              selectStrategy({
+                id: item.id,
+                name: item.name,
+                start_capital: item.start_capital,
+                start_date: item.start_date,
+                end_date: item.end_date,
+              });
+            }}
+          >
+            <p className={style.name}>{item.name}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
