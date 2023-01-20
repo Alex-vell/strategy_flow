@@ -21,7 +21,6 @@ export const appSlice = createSlice({
       state.isLoading = action.payload.status;
     },
   },
-  // extraReducers: builder => {},
 });
 
 export const appReducer = appSlice.reducer;

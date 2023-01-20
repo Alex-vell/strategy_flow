@@ -5,9 +5,9 @@ import { NavLink, Navigate } from 'react-router-dom';
 import { IStrategy } from '../../api/strategy-api';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { PATH } from '../../routes/Routes';
-import { setAppErrorAC } from '../../store/AppSlice';
 import { fetchStrategies } from '../../store/meddleware/strategyMiddleware';
-import { setSelectedStrategyAC } from '../../store/StrategiesSlice';
+import { setAppErrorAC } from '../../store/slice/App/AppSlice';
+import { setSelectedStrategyAC } from '../../store/slice/Strategies/StrategiesSlice';
 
 import style from './Strategies.module.scss';
 
@@ -23,6 +23,7 @@ export const Strategies: FC = () => {
     dispatch(fetchStrategies());
     return () => {
       dispatch(setAppErrorAC({ error: null }));
+      dispatch(setSelectedStrategyAC(null));
     };
   }, []);
 

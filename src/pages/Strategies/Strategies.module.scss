@@ -1,7 +1,6 @@
 @import "src/assets/sass/var";
 
 .strategyPage {
-  //margin: 20px 40px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -39,13 +38,11 @@
     .strategyItem {
       width: 100%;
       padding: 10px 0;
-      box-shadow: rgb(131 131 131 / 15%) 0px 16px 20px, rgb(131 131 131 / 15%) 0px 0px 20px;
+      box-shadow: rgb(131 131 131 / 15%) 0 16px 20px, rgb(131 131 131 / 15%) 0 0 20px;
       display: flex;
       cursor: pointer;
-      //flex-direction: column;
       justify-content: start;
       align-items: center;
-      //background: rgba(55, 143, 143, 0.88);
 
       &:nth-child(odd) {background: rgba(55, 143, 143, 0.29)
       }

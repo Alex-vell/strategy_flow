@@ -35,7 +35,7 @@
       border-radius: 6px;
       padding: 10px 20px;
       margin: 20px;
-      box-shadow: rgb(131 131 131 / 15%) 0px 16px 20px, rgb(131 131 131 / 15%) 0px 0px 20px;
+      box-shadow: rgb(131 131 131 / 15%) 0 16px 20px, rgb(131 131 131 / 15%) 0 0 20px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -48,7 +48,6 @@
       }
 
       .block {
-        //width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;

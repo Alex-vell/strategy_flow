@@ -1,20 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {
-  defaultValueStrategy,
-  // IDefaultStrategy,
-  IPublicApis,
-  IStrategies,
-  IStrategy,
-} from '../api/strategy-api';
-
+import { IPublicApis, IStrategies, IStrategy } from '../../../api/strategy-api';
 import {
   addApiTC,
   addStrategyTC,
   fetchStrategies,
   removeApiTC,
   removeStrategyTC,
-} from './meddleware/strategyMiddleware';
+} from '../../meddleware/strategyMiddleware';
+
+import { defaultValueStrategy } from './index';
 
 interface ILayoutState {
   strategies: IStrategies;

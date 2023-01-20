@@ -13,7 +13,7 @@ import { addStrategyTC } from '../../store/meddleware/strategyMiddleware';
 import {
   setIsCreatedStrategyAC,
   setSelectedStrategyAC,
-} from '../../store/StrategiesSlice';
+} from '../../store/slice/Strategies/StrategiesSlice';
 
 export const StrategyForm: FC = () => {
   const dispatch = useAppDispatch();

@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 
 import { IApi, IStrategy, strategyApi } from '../../api/strategy-api';
-import { setAppErrorAC } from '../AppSlice';
+import { setAppErrorAC } from '../slice/App/AppSlice';
 
 export const fetchStrategies = createAsyncThunk(
   'strategies/fetchStrategies',

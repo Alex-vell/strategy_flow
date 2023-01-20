@@ -6,12 +6,12 @@ import addStrategySVG from '../../assets/img/plus-solid.svg';
 import removeStrategySVG from '../../assets/img/trash-can-solid.svg';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { PATH } from '../../routes/Routes';
-import { setAppErrorAC } from '../../store/AppSlice';
 import {
   fetchStrategies,
   removeApiTC,
   removeStrategyTC,
 } from '../../store/meddleware/strategyMiddleware';
+import { setAppErrorAC } from '../../store/slice/App/AppSlice';
 
 import style from './Home.module.scss';
 

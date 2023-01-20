@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { appReducer } from './AppSlice';
-import { strategiesReducer } from './StrategiesSlice';
+import { appReducer } from './slice/App/AppSlice';
+import { strategiesReducer } from './slice/Strategies/StrategiesSlice';
 
 const rootReducer = combineReducers({
   strategyReducer: strategiesReducer,
